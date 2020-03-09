@@ -1,4 +1,4 @@
-# Stanger Team Challenge - Twitter API Search
+# Stranger Team Challenge - Twitter API Search
 
 ## Funcionalidad
 
