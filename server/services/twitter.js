@@ -1,6 +1,6 @@
 const Twitter = require('../lib/twitter')
 
-class ApiServices {
+class TwitterApiServices {
   constructor () {
     this.twitter = new Twitter()
   }
@@ -15,4 +15,4 @@ class ApiServices {
   }
 }
 
-module.exports = ApiServices
+module.exports = TwitterApiServices
