@@ -8,7 +8,7 @@ const DB_HOST = config.dbHost
 
 const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`
 
-// console.log('MONGO_URI: ', MONGO_URI)
+console.log('MONGO_URI: ', MONGO_URI)
 
 class MongoLib {
   constructor () {
