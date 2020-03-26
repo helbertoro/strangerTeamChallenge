@@ -9,19 +9,8 @@ const TwitterApiService = new TwitterApiServices()
 
 const collection = 'hashtags'
 
+// Get all hashtags from mongo
 router.get('/', async (req, res, next) => {
-  const { body } = req
-  try {
-    const data = await TwitterApiService.getData(body.term)
-    res.status(201).json({
-      data
-    })
-  } catch (err) {
-    next(err)
-  }
-})
-
-router.get('/mongo', async (req, res, next) => {
   try {
     const query = {}
     const hashtags = await db.getAll(collection, query)
@@ -33,23 +22,24 @@ router.get('/mongo', async (req, res, next) => {
   }
 })
 
-router.get('/mongo/:id', async (req, res, next) => {
-
-
-  
-
+// Get specific hashtag from mongo
+router.get('/:hashtag', async (req, res, next) => {
   try {
-    const hashtag = await db.get('hashtags', id)
-    console.log(hashtag)
-    res.json(hashtag)
+    const { hashtag } = req.params
+    const result = await db.getAll(collection,{hashtag})
+
+    res.status(201).json({
+      hashtag,
+      data:result
+    })
   } catch (err) {
     next(err)
   }
 })
 
-router.get('/:hashtag', async (req, res, next) => {
+// Get specific hashtag from twitter and insert to mongo
+router.post('/:hashtag', async (req, res, next) => {
   try {
-
     const { hashtag } = req.params
     const object = await db.getAll(collection, {hashtag})
     if (object) {
@@ -60,12 +50,33 @@ router.get('/:hashtag', async (req, res, next) => {
 
     const data = await TwitterApiService.getData(hashtag)
     console.log(data)
-    const _id = await db.create(collection,{data:data.statuses})
+    const _id = await db.create(collection,{data:data.statuses, hashtag})
     const result = await db.get(collection,_id)
 
     res.status(201).json({
       hashtag,
       data:result
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Delete specific hashtag and every duplication
+router.delete('/:hashtag', async (req, res, next) => {
+  try {
+    const { hashtag } = req.params
+    const object = await db.getAll(collection, {hashtag})
+    const deleted=[]
+    if (object) {
+      object.forEach(element => {
+        const _id = db.delete(collection,element._id)
+        deleted.push(_id)
+      });
+    }
+    res.status(200).json({
+      action:'delete',
+      hashtag,
     })
   } catch (err) {
     next(err)
