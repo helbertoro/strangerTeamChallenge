@@ -3,6 +3,9 @@ const hashtagsRouter = require('./routes/hashtags')
 const bodyParser = require('body-parser')
 const app = express()
 const config = require('./config')
+const cors = require('cors')
+
+app.use(cors())
 
 app.use(bodyParser.json())
 
