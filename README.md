@@ -23,5 +23,34 @@ Usando la API de Twitter permite realizar una búsqueda mediante hashtag de los 
 
 Para ver el avance del proyecto [clic aquí](https://github.com/helbertoro/strangerTeamChallenge/projects/1)
 
+## Server
+
+```
+./server
+```
+
+### Arrancar el servidor con nodemon
+
+```bash
+npm run dev
+```
+
+### Para buscar por hashtag en Twitter
+
+Endpoint method POST
+
+```bash
+http://localhost:8000/api/
+```
+
+Enviar el termino de búsqueda en JSON
+
+```json
+{
+   term: TERMINO_DE_BUSQUEDA
+}
+```
+
+
 ## Licencia
 [MIT](https://choosealicense.com/licenses/mit/)
