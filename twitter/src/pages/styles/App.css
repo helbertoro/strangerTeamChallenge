@@ -1,0 +1,16 @@
+body{
+    background: #0F0F0F;
+}
+
+.container{
+    background: #222222;
+}
+
+.app{
+    height: 100vh;
+    color: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
